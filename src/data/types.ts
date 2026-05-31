@@ -1,6 +1,8 @@
 export interface Holding {
-  ticker: string;
+  ticker: string;       // Display ticker (e.g. "RR", "BT/A")
+  yahooTicker?: string; // Yahoo Finance symbol when different (e.g. "RR.L", "BT-A.L")
   name: string;
+  sector?: string;
   isin?: string;
 }
 
