@@ -17,6 +17,7 @@ const INITIAL_HOLDINGS: EnrichedHolding[] = holdings.map((h) => ({
   pct30d: null,
   pctYtd: null,
   pctAth: null,
+  pctReturn: null,
 }));
 
 export default function DashboardClient() {
@@ -41,14 +42,20 @@ export default function DashboardClient() {
           holdings.map((h) => {
             const apiTicker = (h.yahooTicker ?? h.ticker).toUpperCase();
             const p = priceMap.get(apiTicker);
+            const currentPrice = p?.price ?? null;
+            const pctReturn =
+              currentPrice !== null && h.avgBuyPrice != null && h.avgBuyPrice > 0
+                ? ((currentPrice - h.avgBuyPrice) / h.avgBuyPrice) * 100
+                : null;
             return {
               ...h,
-              currentPrice: p?.price ?? null,
+              currentPrice,
               pctDay: p?.pctDay ?? null,
               pct7d: p?.pct7d ?? null,
               pct30d: p?.pct30d ?? null,
               pctYtd: p?.pctYtd ?? null,
               pctAth: p?.pctAth ?? null,
+              pctReturn,
             };
           })
         );

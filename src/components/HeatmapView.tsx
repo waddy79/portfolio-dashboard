@@ -53,14 +53,14 @@ function HeatTile({
     );
   }
 
-  const color = getHeatColor(holding.pctDay);
-  const pct = holding.pctDay;
+  const pct = holding.pctReturn;
+  const color = getHeatColor(pct);
 
   return (
     <div
       style={{ backgroundColor: color }}
       className="flex flex-col items-center justify-center rounded transition-opacity hover:opacity-80 h-[84px] w-[96px] px-1 overflow-hidden cursor-default select-none"
-      title={`${holding.name} — ${holding.sector}`}
+      title={`${holding.name} — ${holding.sector}${pct !== null ? ` — Your return: ${pct >= 0 ? "+" : ""}${pct.toFixed(2)}%` : ""}`}
     >
       <span className="text-white font-bold text-sm leading-tight tracking-wide truncate max-w-full px-1 text-center">
         {holding.ticker}
@@ -74,7 +74,7 @@ function HeatTile({
           style={{ color: pct >= 0 ? "#bbf7d0" : "#fecaca" }}
         >
           {pct >= 0 ? "+" : ""}
-          {pct.toFixed(2)}%
+          {pct.toFixed(1)}%
         </span>
       ) : (
         <span className="text-[11px] text-white/30 mt-1">—</span>
@@ -121,7 +121,7 @@ export default function HeatmapView({
     <div className="space-y-1">
       {/* Color legend */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
-        <span className="text-slate-600 text-xs">Day change:</span>
+        <span className="text-slate-600 text-xs">Your return:</span>
         {legend.map((l) => (
           <span key={l.label} className="flex items-center gap-1">
             <span

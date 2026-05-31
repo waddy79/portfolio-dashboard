@@ -4,7 +4,7 @@ import { useState, useMemo } from "react";
 import { EnrichedHolding } from "../data/types";
 import ChangeBadge from "./ChangeBadge";
 
-type SortKey = "ticker" | "name" | "sector" | "pctDay" | "pct7d" | "pct30d" | "pctYtd";
+type SortKey = "ticker" | "name" | "sector" | "pctReturn" | "pctDay" | "pct7d" | "pct30d" | "pctYtd";
 
 const SECTOR_COLORS: Record<string, string> = {
   "Technology": "bg-indigo-900/60 text-indigo-300",
@@ -39,7 +39,7 @@ export default function TableView({
 }) {
   const [search, setSearch] = useState("");
   const [sectorFilter, setSectorFilter] = useState<string | null>(null);
-  const [sortKey, setSortKey] = useState<SortKey>("pctDay");
+  const [sortKey, setSortKey] = useState<SortKey>("pctReturn");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const sectors = useMemo(
@@ -162,6 +162,7 @@ export default function TableView({
               <ColHeader col="ticker" label="Ticker" align="left" />
               <ColHeader col="name" label="Name" align="left" />
               <ColHeader col="sector" label="Sector" align="left" />
+              <ColHeader col="pctReturn" label="Your Return %" />
               <ColHeader col="pctDay" label="Day %" />
               <ColHeader col="pct7d" label="7d %" />
               <ColHeader col="pct30d" label="30d %" />
@@ -172,7 +173,7 @@ export default function TableView({
             {loading
               ? [...Array(12)].map((_, i) => (
                   <tr key={i} className="border-t border-slate-800/50">
-                    {[...Array(7)].map((_, j) => (
+                    {[...Array(8)].map((_, j) => (
                       <td key={j} className="py-3 px-3">
                         <div className="h-3.5 bg-slate-800 rounded animate-pulse" style={{ width: `${60 + (j * 11) % 40}%` }} />
                       </td>
@@ -192,6 +193,9 @@ export default function TableView({
                     </td>
                     <td className="py-2.5 px-3">
                       <SectorBadge sector={h.sector} />
+                    </td>
+                    <td className="py-2.5 px-3 text-right">
+                      <ChangeBadge value={h.pctReturn} />
                     </td>
                     <td className="py-2.5 px-3 text-right">
                       <ChangeBadge value={h.pctDay} />

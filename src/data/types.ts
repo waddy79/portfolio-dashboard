@@ -4,6 +4,7 @@ export interface Holding {
   name: string;
   sector?: string;
   isin?: string;
+  avgBuyPrice?: number; // Weighted avg cost basis in native price currency (not displayed, used for return %)
 }
 
 export interface EnrichedHolding extends Holding {
@@ -13,6 +14,7 @@ export interface EnrichedHolding extends Holding {
   pct30d: number | null;
   pctYtd: number | null;
   pctAth: number | null;
+  pctReturn: number | null; // Personal return: (currentPrice - avgBuyPrice) / avgBuyPrice * 100
 }
 
 export interface CryptoHolding {

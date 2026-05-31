@@ -24,6 +24,7 @@ async function getWatchlist(): Promise<EnrichedHolding[]> {
         pct30d: (p as { pct30d?: number })?.pct30d ?? null,
         pctYtd: (p as { pctYtd?: number })?.pctYtd ?? null,
         pctAth: (p as { pctAth?: number })?.pctAth ?? null,
+        pctReturn: null,
       };
     });
   } catch {
@@ -35,6 +36,7 @@ async function getWatchlist(): Promise<EnrichedHolding[]> {
       pct30d: null,
       pctYtd: null,
       pctAth: null,
+      pctReturn: null,
     }));
   }
 }
