@@ -2,6 +2,8 @@
 
 import { EnrichedHolding, Period } from "../data/types";
 
+const MONO = "'JetBrains Mono', 'Courier New', monospace";
+
 const PERIOD_LABELS: Record<Period, string> = {
   return: "YOUR RETURN",
   "1d":   "1D",
@@ -76,8 +78,8 @@ export default function SummaryBar({
             display: "flex",
             alignItems: "center",
             gap: 5,
-            background: "rgba(22, 199, 132, 0.12)",
-            border: "1px solid rgba(22, 199, 132, 0.3)",
+            background: "rgba(34, 197, 94, 0.1)",
+            border: "1px solid rgba(34, 197, 94, 0.25)",
             borderRadius: 20,
             padding: "2px 10px",
           }}
@@ -87,15 +89,15 @@ export default function SummaryBar({
               width: 7,
               height: 7,
               borderRadius: "50%",
-              background: "#16c784",
+              background: "#22C55E",
               display: "inline-block",
-              boxShadow: "0 0 6px #16c784",
+              boxShadow: "0 0 6px #22C55E",
               animation: "livePulse 2s ease-in-out infinite",
             }}
           />
           <span
             style={{
-              color: "#16c784",
+              color: "#22C55E",
               fontSize: 11,
               fontWeight: 700,
               letterSpacing: "0.08em",
@@ -130,9 +132,9 @@ export default function SummaryBar({
           </span>
         ) : (
           <>
-            <Stat label="UP TODAY" value={String(upToday)} color="#16c784" />
+            <Stat label="UP TODAY" value={String(upToday)} color="#22C55E" />
             <Divider />
-            <Stat label="DOWN TODAY" value={String(downToday)} color="#ea3943" />
+            <Stat label="DOWN TODAY" value={String(downToday)} color="#EF4444" />
 
             {best && (
               <>
@@ -141,7 +143,7 @@ export default function SummaryBar({
                   <span style={{ color: "#64748b", fontSize: 10, fontWeight: 600, letterSpacing: "0.06em", fontFamily: "'Inter', sans-serif" }}>
                     BEST
                   </span>
-                  <span style={{ color: "#ffffff", fontWeight: 700, fontSize: 13, fontFamily: "'Inter', sans-serif" }}>
+                  <span style={{ color: "#ffffff", fontWeight: 700, fontSize: 13, fontFamily: MONO, letterSpacing: "0.04em" }}>
                     {best.ticker}
                   </span>
                   <PctBadge value={getPeriodValue(best, selectedPeriod)} />
@@ -156,7 +158,7 @@ export default function SummaryBar({
                   <span style={{ color: "#64748b", fontSize: 10, fontWeight: 600, letterSpacing: "0.06em", fontFamily: "'Inter', sans-serif" }}>
                     WORST
                   </span>
-                  <span style={{ color: "#ffffff", fontWeight: 700, fontSize: 13, fontFamily: "'Inter', sans-serif" }}>
+                  <span style={{ color: "#ffffff", fontWeight: 700, fontSize: 13, fontFamily: MONO, letterSpacing: "0.04em" }}>
                     {worst.ticker}
                   </span>
                   <PctBadge value={getPeriodValue(worst, selectedPeriod)} />
@@ -176,10 +178,10 @@ export default function SummaryBar({
               key={p}
               onClick={() => onPeriodChange(p)}
               style={{
-                background: active ? "#16c784" : "#0f172a",
+                background: active ? "#22C55E" : "#0F172A",
                 color: active ? "#000000" : "#64748b",
                 border: "1px solid",
-                borderColor: active ? "#16c784" : "#1e2433",
+                borderColor: active ? "#22C55E" : "#1e2433",
                 borderRadius: 6,
                 padding: "4px 12px",
                 fontSize: 11,
@@ -212,7 +214,7 @@ function Stat({ label, value, color }: { label: string; value: string; color: st
       <span style={{ color: "#64748b", fontSize: 10, fontWeight: 600, letterSpacing: "0.06em", fontFamily: "'Inter', sans-serif" }}>
         {label}:
       </span>
-      <span style={{ color, fontWeight: 800, fontSize: 15, fontFamily: "'Inter', sans-serif" }}>
+      <span style={{ color, fontWeight: 800, fontSize: 16, fontFamily: MONO, letterSpacing: "-0.02em" }}>
         {value}
       </span>
     </div>
@@ -231,13 +233,14 @@ function PctBadge({ value }: { value: number | null }) {
   return (
     <span
       style={{
-        background: pos ? "rgba(22, 199, 132, 0.15)" : "rgba(234, 57, 67, 0.15)",
-        color: pos ? "#16c784" : "#ea3943",
-        fontSize: 11,
+        background: pos ? "rgba(34, 197, 94, 0.12)" : "rgba(239, 68, 68, 0.12)",
+        color: pos ? "#22C55E" : "#EF4444",
+        fontSize: 12,
         fontWeight: 700,
         padding: "1px 7px",
         borderRadius: 4,
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: MONO,
+        letterSpacing: "-0.02em",
       }}
     >
       {pos ? "+" : ""}{value.toFixed(2)}%

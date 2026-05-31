@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
@@ -7,6 +7,12 @@ const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   variable: "--font-inter",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -20,18 +26,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${mono.variable}`}>
       <body
         style={{
           minHeight: "100vh",
-          background: "#0a0e1a",
+          background: "#0F172A",
           color: "#ffffff",
           fontFamily: "'Inter', system-ui, -apple-system, sans-serif",
         }}
       >
         <nav
           style={{
-            background: "#080c15",
+            background: "#080D1A",
             borderBottom: "1px solid #111827",
             padding: "10px 24px",
             position: "sticky",

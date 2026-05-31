@@ -16,14 +16,16 @@ function getPeriodValue(h: EnrichedHolding, period: Period): number | null {
   }
 }
 
+const MONO = "'JetBrains Mono', 'Courier New', monospace";
+
 function getColor(pct: number | null): string {
-  if (pct === null) return "#1e2433";
-  if (pct >= 10)  return "#16c784";
-  if (pct >= 2)   return "#1a9e68";
-  if (pct >= 0)   return "#166a47";
-  if (pct >= -2)  return "#7a1e22";
-  if (pct >= -10) return "#b22222";
-  return "#ea3943";
+  if (pct === null) return "#1E2433";
+  if (pct >= 10)   return "#16C784";
+  if (pct >= 2)    return "#22C55E";
+  if (pct >= 0)    return "#166A47";
+  if (pct >= -2)   return "#7A1E22";
+  if (pct >= -10)  return "#EF4444";
+  return "#EA3943";
 }
 
 interface TileLeaf {
@@ -92,7 +94,7 @@ export default function HeatmapView({
           width: "100%",
           height: "calc(100vh - 260px)",
           minHeight: "420px",
-          background: "#0a0e1a",
+          background: "#0F172A",
           borderRadius: "8px",
           overflow: "hidden",
         }}
@@ -170,17 +172,18 @@ function Tile({
       {isSmall && (
         <>
           {/* Top section: ticker + name */}
+          {/* Ticker */}
           <div
             style={{
-              color: "#ffffff",
-              fontWeight: 800,
-              fontSize: isLarge ? 15 : isMedium ? 11 : 9,
+              color: "rgba(255,255,255,0.75)",
+              fontWeight: 700,
+              fontSize: isLarge ? 12 : isMedium ? 9 : 8,
               lineHeight: 1.1,
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
-              fontFamily: "'Inter', system-ui, sans-serif",
-              letterSpacing: isLarge ? "0.02em" : 0,
+              fontFamily: MONO,
+              letterSpacing: "0.04em",
             }}
           >
             {h.ticker}
@@ -189,7 +192,7 @@ function Tile({
           {isLarge && (
             <div
               style={{
-                color: "rgba(255,255,255,0.45)",
+                color: "rgba(255,255,255,0.35)",
                 fontSize: 9,
                 lineHeight: 1.2,
                 marginTop: 2,
@@ -206,16 +209,17 @@ function Tile({
           {/* Spacer */}
           <div style={{ flex: 1 }} />
 
-          {/* Bottom: pct */}
+          {/* % return — the hero number */}
           {pct !== null && (
             <div
               style={{
                 color: "#ffffff",
-                fontWeight: 700,
-                fontSize: isLarge ? 14 : isMedium ? 10 : 8,
+                fontWeight: 800,
+                fontSize: isLarge ? 22 : isMedium ? 16 : 11,
                 lineHeight: 1,
-                fontFamily: "'Inter', system-ui, sans-serif",
+                fontFamily: MONO,
                 whiteSpace: "nowrap",
+                letterSpacing: "-0.02em",
               }}
             >
               {pct >= 0 ? "+" : ""}{pct.toFixed(1)}%
@@ -252,7 +256,7 @@ function TooltipCard({ holding }: { holding: EnrichedHolding }) {
         pointerEvents: "none",
       }}
     >
-      <div style={{ color: "#ffffff", fontWeight: 800, fontSize: 18, fontFamily: "'Inter', sans-serif" }}>
+      <div style={{ color: "#ffffff", fontWeight: 800, fontSize: 18, fontFamily: MONO, letterSpacing: "0.04em" }}>
         {holding.ticker}
       </div>
       <div style={{ color: "#94a3b8", fontSize: 11, marginBottom: 10, fontFamily: "'Inter', sans-serif" }}>
@@ -262,15 +266,17 @@ function TooltipCard({ holding }: { holding: EnrichedHolding }) {
         {periods.map(({ key, label }) => {
           const v = getPeriodValue(holding, key);
           return (
-            <div key={key} style={{ fontFamily: "'Inter', sans-serif" }}>
-              <span style={{ color: "#64748b", fontSize: 9, textTransform: "uppercase", letterSpacing: "0.05em" }}>
+            <div key={key}>
+              <span style={{ color: "#475569", fontSize: 9, textTransform: "uppercase" as const, letterSpacing: "0.05em", fontFamily: "'Inter', sans-serif" }}>
                 {label}
               </span>
               <div
                 style={{
-                  color: v === null ? "#475569" : v >= 0 ? "#16c784" : "#ea3943",
+                  color: v === null ? "#334155" : v >= 0 ? "#22C55E" : "#EF4444",
                   fontWeight: 700,
                   fontSize: 13,
+                  fontFamily: MONO,
+                  letterSpacing: "-0.02em",
                 }}
               >
                 {v !== null ? `${v >= 0 ? "+" : ""}${v.toFixed(2)}%` : "—"}
