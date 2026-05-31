@@ -32,6 +32,8 @@ export interface EnrichedCryptoHolding extends CryptoHolding {
   pctAth: number | null;
 }
 
+export type Period = 'return' | '1d' | '7d' | '30d' | 'ytd';
+
 export interface StockPriceData {
   ticker: string;
   price: number | null;
