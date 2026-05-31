@@ -66,7 +66,6 @@ export async function GET() {
         id,
         symbol: symbols[id].symbol,
         name: symbols[id].name,
-        amount: 0, // populated from crypto.ts
         currentPrice,
         pctDay,
         pct7d,

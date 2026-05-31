@@ -1,6 +1,6 @@
 "use client";
 
-import { Holding, EnrichedHolding } from "../data/types";
+import { EnrichedHolding } from "../data/types";
 import ChangeBadge from "./ChangeBadge";
 
 interface Props {
@@ -37,9 +37,6 @@ export default function PortfolioTable({ holdings, loading }: Props) {
           <tr className="text-gray-400 border-b border-gray-700">
             <th className="text-left py-3 px-2 font-medium">Ticker</th>
             <th className="text-left py-3 px-2 font-medium">Name</th>
-            <th className="text-right py-3 px-2 font-medium">Shares</th>
-            <th className="text-right py-3 px-2 font-medium">Avg Buy</th>
-            <th className="text-right py-3 px-2 font-medium">Current</th>
             <th className="text-right py-3 px-2 font-medium">% Day</th>
             <th className="text-right py-3 px-2 font-medium">% 7d</th>
             <th className="text-right py-3 px-2 font-medium">% 30d</th>
@@ -58,15 +55,6 @@ export default function PortfolioTable({ holdings, loading }: Props) {
               </td>
               <td className="py-3 px-2 text-gray-300 max-w-[200px] truncate">
                 {h.name}
-              </td>
-              <td className="py-3 px-2 text-right font-mono text-gray-300">
-                {h.shares.toLocaleString(undefined, { maximumFractionDigits: 4 })}
-              </td>
-              <td className="py-3 px-2 text-right font-mono text-gray-300">
-                {h.avgBuyPrice.toFixed(2)}
-              </td>
-              <td className="py-3 px-2 text-right font-mono text-white font-semibold">
-                {h.currentPrice?.toFixed(2) ?? "—"}
               </td>
               <td className="py-3 px-2 text-right">
                 <ChangeBadge value={h.pctDay} />

@@ -1,9 +1,6 @@
 export interface Holding {
   ticker: string;
   name: string;
-  shares: number;
-  avgBuyPrice: number;
-  currency: string;
   isin?: string;
 }
 
@@ -20,7 +17,6 @@ export interface CryptoHolding {
   id: string;
   symbol: string;
   name: string;
-  amount: number;
 }
 
 export interface EnrichedCryptoHolding extends CryptoHolding {

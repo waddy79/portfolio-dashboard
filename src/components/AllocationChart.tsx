@@ -23,13 +23,10 @@ const COLORS = [
 ];
 
 export default function AllocationChart({ holdings }: Props) {
-  const data = holdings
-    .filter((h) => h.currentPrice)
-    .map((h) => ({
-      name: h.ticker,
-      value: h.shares * (h.currentPrice ?? 0),
-    }))
-    .sort((a, b) => b.value - a.value);
+  const data = holdings.map((h) => ({
+    name: h.ticker,
+    value: 1,
+  }));
 
   return (
     <div className="bg-gray-800/50 rounded-xl p-6">

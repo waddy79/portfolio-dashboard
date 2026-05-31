@@ -23,22 +23,14 @@ export default async function CryptoPage() {
       <div>
         <h1 className="text-2xl font-bold text-white">Crypto</h1>
         <p className="text-slate-400 text-sm mt-1">
-          Live prices from CoinGecko &middot; Update amounts in{" "}
-          <code className="text-slate-300">src/data/crypto.ts</code>
+          Live prices from CoinGecko
         </p>
       </div>
-
-      {cryptoHoldings.filter((c) => c.amount > 0).length === 0 && (
-        <div className="bg-amber-900/20 border border-amber-700/30 rounded-xl p-4 text-amber-300 text-sm">
-          ⚠️ No crypto amounts set. Edit <code>src/data/crypto.ts</code> with your
-          actual BTC, SOL, SUI, and TAO holdings to see values.
-        </div>
-      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {coins.map((coin) => {
           const holding = cryptoHoldings.find((h) => h.id === coin.id);
-          const amount = holding?.amount || 0;
+          if (!holding) return null;
           return (
             <div
               key={coin.id}
@@ -55,12 +47,6 @@ export default async function CryptoPage() {
                   ${coin.currentPrice?.toLocaleString() ?? "—"}
                 </span>
               </div>
-              {amount > 0 && (
-                <p className="text-sm text-slate-400">
-                  Holding: <span className="text-white">{amount}</span>{" "}
-                  {coin.symbol}
-                </p>
-              )}
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div>
                   <p className="text-xs text-slate-500">24h</p>
